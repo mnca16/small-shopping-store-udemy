@@ -1,9 +1,4 @@
 class Product {
-    tittle = 'DEFAULT';
-    imageUrl;
-    description;
-    price;
-
     constructor(title, image, desc, price) {
         this.tittle = title;
         this.imageUrl = image;
