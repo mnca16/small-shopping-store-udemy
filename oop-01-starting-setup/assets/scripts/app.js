@@ -8,6 +8,26 @@ class Product {
     }
 }
 
+class ShoppingCart {
+    item = [];
+
+    addProduct(product) {
+        this.items.push(product);
+        this.totalOutput = `<h2>Total: \$${1}</h2>`;
+    }
+
+    render() {
+        const cartEl = document.createElement('section');
+        cartEl.innerHTML = `
+          <h2>Total: \$${0}</h2>
+          <button>Order Now!</button>
+        `;
+        cartEl.className = 'cart';
+        this.totalOutput = cartEl.querySelector('h2');
+        return cartEl;
+    }
+}
+
 //This class holds the logic of how a product looks like in the shop
 class ProductItem {
     constructor(product) {
@@ -15,8 +35,9 @@ class ProductItem {
     }
 
     addToCart() {
-        console.log('Adding product to cart...')
-        console.log(this.product)
+        console.log('Adding product to cart...');
+        console.log(this.product);
+        //ShoppingCart.addProduct();
     }
 
     render() {
@@ -59,7 +80,6 @@ class ProducList {
     constructor() {}
 
     render() {
-        const renderHook = document.getElementById('app');
         const prodList = document.createElement('ul');
         prodList.className = 'product-list';
         for (const prod of this.products) {
@@ -68,10 +88,25 @@ class ProducList {
             prodList.append(prodEl);
             
         }
-        renderHook.append(prodList);
+        return prodList;
     }
 }
 
-const productList = new ProducList();
-productList.render();
+class Shop {
+    render() {
+        const renderHook = document.getElementById('app');
+        const cart = new ShoppingCart();
+        const cartEl = cart.render();
+        const productList = new ProducList();
+        const prodListEl = productList.render();
+
+        renderHook.append(cartEl);
+        renderHook.append(prodListEl);
+    }
+
+}
+
+const shop = new Shop();
+shop.render();
+
 
